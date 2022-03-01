@@ -11,16 +11,10 @@ Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_
 
 """
 
-import numpy as np
 import pandas as pd
 import time
-import datetime
 import bodo
-import os
 
-os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
 
 @bodo.jit(cache=True)
 def get_daily_pickups():
@@ -33,7 +27,7 @@ def get_daily_pickups():
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
 
     end = time.time()
-    print("Reading Time: ", (end - start) )
+    print("Reading Time: ", (end - start))
 
     start = time.time()
     daily_pickups_taxi = green_taxi.groupby(
@@ -47,11 +41,10 @@ def get_daily_pickups():
         },
         copy=False,
     )
-    daily_pickups_taxi = daily_pickups_taxi.sort_values(
-        by="trips", ascending=False
-    )
+    daily_pickups_taxi = daily_pickups_taxi.sort_values(by="trips", ascending=False)
     end = time.time()
     print("Daily pickups Computation Time: ", (end - start))
     print(daily_pickups_taxi.head())
+
 
 get_daily_pickups()

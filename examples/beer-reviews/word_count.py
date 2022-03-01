@@ -4,7 +4,6 @@ Word count benchmark.
 
 import os
 import time
-import itertools
 import argparse
 import pandas as pd
 import bodo
@@ -20,16 +19,18 @@ def bodo_read_csv(fname):
 
     print("Reading input data started ...")
     t1 = time.time()
-    cols = {'beer_id': 'int',
-            'username': 'str',
-            'date': 'str',
-            'text': 'str',
-            'look': 'float',
-            'smell': 'float',
-            'taste': 'float',
-            'feel': 'float',
-            'overall': 'float',
-            'score': 'float'}
+    cols = {
+        "beer_id": "int",
+        "username": "str",
+        "date": "str",
+        "text": "str",
+        "look": "float",
+        "smell": "float",
+        "taste": "float",
+        "feel": "float",
+        "overall": "float",
+        "score": "float",
+    }
     df = pd.read_csv(fname, dtype=cols, names=cols.keys())
     print("Finished IO", time.time() - t1)
     return df
@@ -62,8 +63,8 @@ def main():
     """
 
     os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
-    parser = argparse.ArgumentParser(description='word count')
-    parser.add_argument('--file', dest='file', type=str, default="reviews.csv")
+    parser = argparse.ArgumentParser(description="word count")
+    parser.add_argument("--file", dest="file", type=str, default="reviews.csv")
     args = parser.parse_args()
 
     datafile = args.file
@@ -71,12 +72,12 @@ def main():
     # notes = bodo_read_csv('../beers-breweries-and-beer-reviews/breweries.csv')
     # notes = bodo_read_csv('s3://bodo-poc/data/reviews50GB.csv')
     w_c = lexi_main(notes)
-    
+
     if bodo.get_rank() == 0:
         print(w_c)
-    
+
     return w_c
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

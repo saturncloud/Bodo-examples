@@ -1,0 +1,34 @@
+{
+    "name": "example-bodo",
+    "image_uri": "public.ecr.aws/saturncloud/saturn:2022.01.06",
+    "description": "Bodo.ai on Saturn Cloud using a CPU instance.",
+    "environment_variables": {},
+    "working_directory": "/home/jovyan/git-repos",
+    "extra_packages": {
+        "remotes": "",
+        "bioconductor": "",
+        "apt": "",
+        "cran": "",
+        "use_mamba": true,
+        "conda": "bodo ipyparallel mpi4py xgboost pandas-datareader scikit-learn==0.24.2 h5py -c bodo.ai -c conda-forge",
+        "pip": ""
+    },
+    "start_script": "",
+    "git_repositories": [
+        {
+            "url": "git@github.com:saturncloud/poc-bodo.git",
+            "path": "/home/jovyan/git-repos/poc-bodo",
+            "public": false,
+            "on_restart": "preserve changes",
+            "reference": null,
+            "reference_type": "branch"
+        }
+    ],
+    "jupyter_server": {
+        "instance_type": "2xlarge",
+        "disk_space": "10Gi",
+        "auto_shutoff": "1 hour",
+        "start_ssh": false
+    },
+    "version": "2022.01.06"
+}

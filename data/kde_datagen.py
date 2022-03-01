@@ -10,7 +10,6 @@ the dataset is generated and written in parallel.
 import numpy as np
 import pandas as pd
 import argparse
-import time
 import bodo
 import os
 

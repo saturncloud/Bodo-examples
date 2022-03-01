@@ -6,7 +6,6 @@ Generate data for Linear Regression example
                                         --functions [functions] --file [filename]
 """
 import h5py
-import numpy as np
 import argparse
 import sklearn.datasets
 import os

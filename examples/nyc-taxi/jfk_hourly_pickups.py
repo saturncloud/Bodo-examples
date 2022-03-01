@@ -14,10 +14,6 @@ import bodo
 import pandas as pd
 import time
 
-import os
-os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
 
 @bodo.jit(cache=True)
 def get_jfk_hourly_pickups():
@@ -29,13 +25,13 @@ def get_jfk_hourly_pickups():
     )
     green_taxi["pickup_hour"] = green_taxi["lpep_pickup_datetime"].dt.hour
     end = time.time()
-    print("Reading Time: ", (end - start) )
+    print("Reading Time: ", (end - start))
 
     start = time.time()
     trips = green_taxi.loc[green_taxi["PULocationID"] == 132]
-    jfk_hourly = trips.groupby(
-        ["pickup_hour", "PULocationID"], as_index=False
-    )["lpep_pickup_datetime"].count()
+    jfk_hourly = trips.groupby(["pickup_hour", "PULocationID"], as_index=False)[
+        "lpep_pickup_datetime"
+    ].count()
     jfk_hourly = jfk_hourly.rename(
         columns={
             "lpep_pickup_datetime": "trips",
