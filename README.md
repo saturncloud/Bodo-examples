@@ -7,9 +7,11 @@ Welcome to Bodo examples! These are adapted from the [bodo.ai example repository
 Many of the data generation scripts and example scripts can take in optional arguments. 
 `python path/script.py --help` shows the usage.
 
-By default all examples and data generation scripts can be run from home directory (Bodo-examples) without any changes. Otherwise, make sure to change path of data files.
+By default all examples and data generation scripts can be run from home directory without any changes. Otherwise, make sure to change path of data files.
 
 For more information on data generation and examples, please see the docstring at the top of each python script.
+
+>**Note** Bodo works best on huge datasets, which can take some time to download.
 
 - [Kernel Density Estimation](examples/kernel_density_estimation.py)
   - [data generation](data/kde_datagen.py)
