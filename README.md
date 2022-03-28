@@ -2,7 +2,7 @@
 
 Welcome to Bodo examples! These are adapted from the [bodo.ai example repository](https://github.com/Bodo-inc/Bodo-examples).
 
->**Note**: Bodo works best for very large datasets, so downloading the data used in the examples can take some time. Please be patient while the datasets download for each example - you will see the speed benefits of bodo when manipulating the downloaded data.
+>**Note**: Bodo works best for very large datasets, so downloading the data used in the examples can take some time. Please be patient while the datasets download for each example - you will see the speed benefits of Bodo when manipulating the downloaded data.
 
 ## Examples
 There are two types of examples in this repository - notebooks and scripts.

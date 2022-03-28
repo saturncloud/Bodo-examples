@@ -1,6 +1,6 @@
 # Bodo Examples - Notebooks
 
-These examples use the bodo libarary in a Jupyter notebook environment using iPyParallel.
+These examples use the Bodo library in a Jupyter notebook environment using iPyParallel.
 
 [1. Chicago Crimes](chicago-crimes.ipynb): An EDA of Chicago crime data
 
@@ -8,7 +8,7 @@ These examples use the bodo libarary in a Jupyter notebook environment using iPy
 
 [3. NYC Taxi](nyc-taxi.ipynb): An EDA of NYC taxi trips during 2019
 
-[4. Flight Cancellation Prediction](flight-cancelation-prediction.ipynb): Use a classification model to predict fligth delays and cancellations
+[4. Flight Cancellation Prediction](flight-cancelation-prediction.ipynb): Use a classification model to predict flight delays and cancellations
 
 [5. Taxi Tips Prediction](taxi-tips-prediction.ipynb): Use a regression model to predict tip percentages for taxi rides
 
