@@ -1,33 +1,31 @@
 """
 NYC Green Taxi daily pickups in 2019
-
 Source: https://github.com/toddwschneider/nyc-taxi-data/blob/master/analysis/2017_update/queries_2017.sql
-
 Usage:
     mpiexec -n [cores] python get_daily_pickups.py
-
-Data source: Green Taxi 2019 s3://bodo-examples-data/nyc-taxi/green_tripdata_2019.csv
+Data source: Green Taxi 2019 s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv
 Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_files/raw_data_urls.txt
-
 """
 
+import numpy as np
 import pandas as pd
 import time
+import datetime
 import bodo
-
 
 @bodo.jit(cache=True)
 def get_daily_pickups():
     start = time.time()
     green_taxi = pd.read_csv(
-        "s3://bodo-examples-data/nyc-taxi/green_tripdata_2019.csv",
+        "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
         usecols=[1, 5],
         parse_dates=["lpep_pickup_datetime"],
+        dtype = {'PULocationID' : np.int64}
     )
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
 
     end = time.time()
-    print("Reading Time: ", (end - start))
+    print("Reading Time: ", (end - start) )
 
     start = time.time()
     daily_pickups_taxi = green_taxi.groupby(
@@ -41,10 +39,11 @@ def get_daily_pickups():
         },
         copy=False,
     )
-    daily_pickups_taxi = daily_pickups_taxi.sort_values(by="trips", ascending=False)
+    daily_pickups_taxi = daily_pickups_taxi.sort_values(
+        by="trips", ascending=False
+    )
     end = time.time()
     print("Daily pickups Computation Time: ", (end - start))
     print(daily_pickups_taxi.head())
-
 
 get_daily_pickups()
