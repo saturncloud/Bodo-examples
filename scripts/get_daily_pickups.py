@@ -13,6 +13,7 @@ import time
 import datetime
 import bodo
 
+
 @bodo.jit(cache=True)
 def get_daily_pickups():
     start = time.time()
@@ -20,17 +21,17 @@ def get_daily_pickups():
         "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
         usecols=[1, 5],
         parse_dates=["lpep_pickup_datetime"],
-        dtype = {'PULocationID' : np.int64}
+        dtype={"PULocationID": np.int64},
     )
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
 
     end = time.time()
-    print("Reading Time: ", (end - start) )
+    print("Reading Time: ", (end - start))
 
     start = time.time()
-    daily_pickups_taxi = green_taxi.groupby(
-        ["PULocationID", "pickup_date"], as_index=False
-    )["lpep_pickup_datetime"].count()
+    daily_pickups_taxi = green_taxi.groupby(["PULocationID", "pickup_date"], as_index=False)[
+        "lpep_pickup_datetime"
+    ].count()
     daily_pickups_taxi = daily_pickups_taxi.rename(
         columns={
             "PULocationID": "pickup_location_id",
@@ -39,11 +40,10 @@ def get_daily_pickups():
         },
         copy=False,
     )
-    daily_pickups_taxi = daily_pickups_taxi.sort_values(
-        by="trips", ascending=False
-    )
+    daily_pickups_taxi = daily_pickups_taxi.sort_values(by="trips", ascending=False)
     end = time.time()
     print("Daily pickups Computation Time: ", (end - start))
     print(daily_pickups_taxi.head())
+
 
 get_daily_pickups()

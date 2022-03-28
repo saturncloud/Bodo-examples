@@ -12,6 +12,7 @@ import pandas as pd
 import time
 import numpy as np
 
+
 @bodo.jit(cache=True)
 def get_jfk_hourly_pickups():
     start = time.time()
@@ -19,17 +20,17 @@ def get_jfk_hourly_pickups():
         "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
         usecols=[1, 5],
         parse_dates=["lpep_pickup_datetime"],
-        dtype = {'PULocationID' : np.int64}
+        dtype={"PULocationID": np.int64},
     )
     green_taxi["pickup_hour"] = green_taxi["lpep_pickup_datetime"].dt.hour
     end = time.time()
-    print("Reading Time: ", (end - start) )
+    print("Reading Time: ", (end - start))
 
     start = time.time()
     trips = green_taxi.loc[green_taxi["PULocationID"] == 132]
-    jfk_hourly = trips.groupby(
-        ["pickup_hour", "PULocationID"], as_index=False
-    )["lpep_pickup_datetime"].count()
+    jfk_hourly = trips.groupby(["pickup_hour", "PULocationID"], as_index=False)[
+        "lpep_pickup_datetime"
+    ].count()
     jfk_hourly = jfk_hourly.rename(
         columns={
             "lpep_pickup_datetime": "trips",

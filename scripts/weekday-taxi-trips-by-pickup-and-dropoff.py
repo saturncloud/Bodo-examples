@@ -13,6 +13,7 @@ import time
 import datetime
 import bodo
 
+
 @bodo.jit(cache=True)
 def get_weekday_trips():
     start = time.time()
@@ -20,13 +21,12 @@ def get_weekday_trips():
         "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
         usecols=[1, 5, 6],
         parse_dates=["lpep_pickup_datetime"],
-        dtype = {'PULocationID' : np.int64}
+        dtype={"PULocationID": np.int64},
     )
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
     green_taxi["pickup_dow"] = green_taxi["lpep_pickup_datetime"].dt.dayofweek
     end = time.time()
-    print("Reading Time: ", (end - start) )
-
+    print("Reading Time: ", (end - start))
 
     start = time.time()
     trips_weekdays = green_taxi[
@@ -37,9 +37,7 @@ def get_weekday_trips():
     trips_weekdays = trips_weekdays.groupby(
         ["PULocationID", "DOLocationID"], as_index=False
     ).count()
-    trips_weekdays = trips_weekdays[
-        ["PULocationID", "DOLocationID", "lpep_pickup_datetime"]
-    ]
+    trips_weekdays = trips_weekdays[["PULocationID", "DOLocationID", "lpep_pickup_datetime"]]
     trips_weekdays = trips_weekdays.sort_values(by=["PULocationID", "DOLocationID"])
     trips_weekdays = trips_weekdays.rename(
         columns={

@@ -1,6 +1,6 @@
 # Bodo Examples - Scripts
 
-These examples are scripts run using the bodo library. They are based off of the NYC Taxi dataset. 
+These examples are scripts run using the Bodo library. They are based off of the NYC Taxi dataset. 
 
 To run these scripts, use mpiexe:
 
